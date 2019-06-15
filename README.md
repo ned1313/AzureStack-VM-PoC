@@ -81,3 +81,8 @@ or **Deploy to Azure** (**deploy.azure.com**)
 - Tested with ASDK 1.1901.0.95
 
 Feel free to post questions and enjoy!
+
+**updates on 15.06.2019**
+- Tested with ASDK 1.1905.0.40
+- Updated to work with updated ASDK numbering
+- Added option to use Standard SSD instead of Premium

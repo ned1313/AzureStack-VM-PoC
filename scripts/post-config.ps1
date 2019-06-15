@@ -53,10 +53,10 @@ $writeLogParams = @{
     LogFilePath = $logFileFullPath
 }
 
-DownloadWithRetry -Uri "https://raw.githubusercontent.com/yagmurs/AzureStack-VM-PoC/master/config.ind" -DownloadLocation "$defaultLocalPath\config.ind"
+DownloadWithRetry -Uri "https://raw.githubusercontent.com/ned1313/AzureStack-VM-PoC/master/config.ind" -DownloadLocation "$defaultLocalPath\config.ind"
 $gitbranchconfig = Import-Csv -Path $defaultLocalPath\config.ind -Delimiter ","
 $gitbranchcode = $gitbranchconfig.branch.Trim()
-$gitbranch = "https://raw.githubusercontent.com/yagmurs/AzureStack-VM-PoC/$gitbranchcode"
+$gitbranch = "https://raw.githubusercontent.com/ned1313/AzureStack-VM-PoC/$gitbranchcode"
 
 DownloadWithRetry -Uri "$gitbranch/scripts/ASDKHelperModule.psm1" -DownloadLocation "$defaultLocalPath\ASDKHelperModule.psm1"
 

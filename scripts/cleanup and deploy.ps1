@@ -10,8 +10,8 @@ $SecureAdminPassword = Read-Host -AsSecureString -Prompt "Provide local Administ
 # declare variables 
 [int]$instanceNumber = 1 # resource group name will be generated based on this number. 
 [bool]$autoDownloadASDK = $false #either download latest ADSK in the VM or not. Setting this to $true will add additional ~35 mins to ARM template deployment time.
-[string]$resourceGroupNamePrefix = "yagmursasdk" #Resource group name will be generated based on this prefix. Ex. yagmursasdk-1
-[string]$publicDnsNamePrefix = "yagmursasdkinstance" # This will will be concatenated with $instancenumber. Ex. yagmursasdkinstance1.eastus2.cloudapp.azure.com
+[string]$resourceGroupNamePrefix = "ned1313asdk" #Resource group name will be generated based on this prefix. Ex. ned1313asdk-1
+[string]$publicDnsNamePrefix = "ned1313asdkinstance" # This will will be concatenated with $instancenumber. Ex. ned1313asdkinstance1.eastus2.cloudapp.azure.com
 [string]$location = 'East US2' # can be any region that supports E and D VM sizes that supports nested virtualization.
 [string]$virtualMachineSize = "Standard_E32s_v3" # 1811 and upper versions require 256GB RAM
 [ValidateSet("development", "master")][string]$gitBranch = "master" # github branch 
@@ -30,7 +30,7 @@ New-AzureRmResourceGroup -Name $resourceGroupName -Location $location
 
 # deploy ARM template from github using locally provided ARM template parameters
 New-AzureRmResourceGroupDeployment -Name "$resourceGroupName-PoC-Deployment" -ResourceGroupName $resourceGroupName `
-    -TemplateUri "https://raw.githubusercontent.com/yagmurs/AzureStack-VM-PoC/$gitBranch/azuredeploy.json" `
+    -TemplateUri "https://raw.githubusercontent.com/ned1313/AzureStack-VM-PoC/$gitBranch/azuredeploy.json" `
     -TemplateParameterObject $templateParameterObject `
     -Mode Incremental `
     -AsJob

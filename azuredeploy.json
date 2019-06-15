@@ -55,6 +55,17 @@
                 "name": 4
             }
         },
+        "StandardOrPremium":{
+            "type": "string",
+            "defaultValue": "StandardSSD_LRS",
+            "allowedValues": [
+                "Premium_LRS",
+                "StandardSSD_LRS"
+            ],
+            "metadata": {
+                "name": "Standard or Premuim SSDs"
+            }
+        },
         "virtualNetworkName": {
             "type": "string",
             "defaultValue": "AzureStack-VNET",
@@ -183,7 +194,7 @@
         {
             "name": "[parameters('virtualMachineName')]",
             "type": "Microsoft.Compute/virtualMachines",
-            "apiVersion": "2016-04-30-preview",
+            "apiVersion": "2018-04-01",
             "location": "[parameters('sitelocation')]",
             "dependsOn": [
                 "[concat('Microsoft.Network/networkInterfaces/', variables('networkInterfaceName'))]"
@@ -211,7 +222,7 @@
                         "createOption": "FromImage",
                         "diskSizeGB": "[variables('osDiskSizeinGB')]",
                         "managedDisk": {
-                            "storageAccountType": "Premium_LRS"
+                            "storageAccountType": "[parameters('StandardOrPremium')]"
                         }
                     },
                     "copy": [{
@@ -224,7 +235,7 @@
                             "diskSizeGB": "[parameters('dataDiskSizeinGB')]",
                             "caching": "ReadOnly",
                             "managedDisk": {
-                                "storageAccountType": "Premium_LRS"
+                                "storageAccountType": "[parameters('StandardOrPremium')]"
                             }
                         }
                     }]

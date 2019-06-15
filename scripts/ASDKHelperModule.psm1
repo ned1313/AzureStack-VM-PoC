@@ -50,17 +50,16 @@ function Write-Log ([string]$Message, [string]$LogFilePath, [switch]$Overwrite)
 function findLatestASDK 
 {
     [CmdletBinding()]
-    Param($asdkURIRoot, [string[]]$asdkFileList, $count = 8)
+    Param($asdkURIRoot, [string[]]$asdkFileList, $count = 3)
     $versionArray = @()
     $versionArrayToTest = @()
     $version = @(Get-Date -Format "yyMM")
-    $suffix = @('-3','-2','-1','')
     
     for ($i = 0; $i -lt $count; $i++)
     {       
-        foreach ($s in $suffix) {
+        1..100 | foreach {
             $version = (Get-Date (Get-Date).AddMonths(-$i) -Format "yyMM")
-            $versionArrayToTest += "$version" + "$s"
+            $versionArrayToTest += "$version" + "-$_"
         }
         Write-Verbose "$versionArrayToTest" -Verbose
     }

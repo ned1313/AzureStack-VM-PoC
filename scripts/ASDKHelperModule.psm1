@@ -192,10 +192,17 @@ function workaround1
 function workaround2
 {
     Write-Verbose "Applying workaround to tweak long path issues started appear after 1802" -Verbose
+    Write-Verbose "Change nuget command to use -ExcludeVersion" -Verbose
     $HelpersFilePath = "C:\CloudDeployment\Common\Helpers.psm1" 
     $HelpersFile = Get-Content -Path $HelpersFilePath
     $HelpersFile = $HelpersFile.Replace('C:\tools\NuGet.exe install $NugetName -Source $NugetStorePath -OutputDirectory $DestinationPath -packagesavemode "nuspec" -Prerelease','C:\tools\NuGet.exe install $NugetName -Source $NugetStorePath -OutputDirectory $DestinationPath -packagesavemode "nuspec" -Prerelease -ExcludeVersion') 
     Set-Content -Value $HelpersFile -Path $HelpersFilePath -Force
+
+    Write-Verbose "Update Mount Image Path to use shorted random path" -Verbose
+    $MountedImageFilePath = "C:\CloudDeployment\Roles\Common\MountedImage.psm1"
+    $MountedImageFile = Get-Content -Path $MountedImageFilePath
+    $MountedImageFile = $MountedImageFile.Replace('$this.MountPath = Join-Path -Path "C:\Temp\" -ChildPath $(Get-Item -Path $([IO.Path]::GetTempFileName())).Name','$this.MountPath = Join-Path -Path "C:\Temp\" -ChildPath $(Get-Item -Path $([IO.Path]::GetTempFileName())).Name.Substring(3)')
+    Set-Content -Value $MountedImageFile -Path $MountedImageFilePath -Force
 }
 
 function workaround3
